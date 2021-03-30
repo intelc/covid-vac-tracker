@@ -19,9 +19,9 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 
-server.use(express.static(path.join(__dirname, '../build')))
+server.use(express.static(path.join(__dirname, '/build')))
 server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build'))
+    res.sendFile(path.join(__dirname, '/build'))
 })
 
 server.use('/api', ChinaRouter);
