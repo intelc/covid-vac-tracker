@@ -11,6 +11,7 @@ const puppeteer = require('puppeteer');
 
 // Create Questionwqe
 router.get('/china/latest', (req, res) => {
+    console.log('I AM HERE')
     China.find({}).sort({date: -1}).then(function (data) {
         res.send(data[0])
         console.log(data[0])

@@ -19,13 +19,15 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 
+server.use('/api',ChinaRouter);
+server.use('/', (req,res,next)=>res.send('Hello World'));
+
 server.use(express.static(path.join(__dirname, '/build')))
 server.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/build'))
 })
 
-server.use('/api', ChinaRouter);
-server.use('/', (req,res,next)=>res.send('Hello World'));
+
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => console.log(`Server started on port ${PORT}`));

@@ -9,6 +9,7 @@ function App() {
     const getData = async()=>{
       const dataFromServer = await pullData()
       const{date, vaccinated} = await dataFromServer
+      console.log(vaccinated)
       setData(vaccinated)
     }
     getData()
@@ -30,7 +31,7 @@ function App() {
     console.log('fetched')
     
     const returnedPromise= res.json()
-    //console.log(res.json())
+    console.log(returnedPromise)
     return(returnedPromise)
   }
   return (
