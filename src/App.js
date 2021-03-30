@@ -15,7 +15,7 @@ function App() {
     
   }, [])
   const sendRequest = async (date,vaccinated)=>{
-    const res =await fetch('/api/china/add',{method:'POST', 
+    const res =await fetch('api/china/add',{method:'POST', 
     headers: {
       'Content-type':'application/json'
     },
@@ -26,7 +26,7 @@ function App() {
 
   }
   const pullData = async ()=>{
-    const res =await fetch('/api/china/latest',{methods:'GET'})
+    const res =await fetch('api/china/latest',{methods:'GET'})
     console.log('fetched')
     
     const returnedPromise= res.json()
