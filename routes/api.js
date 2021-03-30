@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const China = require('../models/china.js')
+const Us = require('../models/us.js')
 const { v4 } = require('uuid')
 const puppeteer = require('puppeteer');
 
@@ -10,35 +10,35 @@ const puppeteer = require('puppeteer');
 //router.get('/', (req, res) => res.json(Question));
 
 // Create Questionwqe
-router.get('/china/latest', (req, res) => {
+router.get('/US/latest', (req, res) => {
     console.log('I AM HERE')
-    China.find({}).sort({date: -1}).then(function (data) {
+    Us.find({}).sort({date: -1}).then(function (data) {
         res.send(data[0])
         console.log(data[0])
         });
         
 })
 
-router.get('/china', (req, res) => {
-    China.find({}).then(function (data) {
+router.get('/US', (req, res) => {
+    Us.find({}).then(function (data) {
         res.send(data);
         });
        
 })
 
 
-router.post('/china/add', async(req, res) => {
+router.post('/US/add', async(req, res) => {
     const { date,vaccinated } = req.body
 
     try {
-        await China.create({ date,vaccinated })
-        res.send(`China vaccinated ${vaccinated} as of ${date} updated`)
+        await Us.create({ date,vaccinated })
+        res.send(`US vaccinated ${vaccinated} as of ${date} updated`)
       } catch {
-        res.send('failure occurs when creating the entry for China')
+        res.send('failure occurs when creating the entry for US')
       }
 });
 
-router.get('/china/update', async(req, res) => {
+router.get('/US/update', async(req, res) => {
     const browser = await puppeteer.launch();
     try{
         const page = await browser.newPage();
@@ -62,12 +62,12 @@ router.get('/china/update', async(req, res) => {
         const date = new Date()
        
      
-        try{await China.create({date,vaccinated})
+        try{await Us.create({date,vaccinated})
     }catch(e){
         console.log(e)
     }
         
-        res.send(`China vaccinated ${vaccinated} as of ${date} updated`)
+        res.send(`Us vaccinated ${vaccinated} as of ${date} updated`)
         
         await browser.close();
     }catch{

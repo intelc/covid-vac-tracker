@@ -4,7 +4,7 @@ const express = require('express')
 const cors = require('cors');
 const path = require('path')
 
-const ChinaRouter = require('./routes/api.js')
+const UsRouter = require('./routes/api.js')
 
 
 const server = express()
@@ -24,7 +24,7 @@ server.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/build'))
 })
 
-server.use('/api',ChinaRouter);
+server.use('/api',UsRouter);
 server.use('/', (req,res,next)=>res.send('Hello World'));
 
 

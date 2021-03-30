@@ -1,9 +1,9 @@
 
 const { Schema, model } = require('mongoose')
 
-const chinaSchema = new Schema({
+const usSchema = new Schema({
   date: Date,
   vaccinated: Number
 })
 
-module.exports = model('China', chinaSchema)
+module.exports = model('Us', usSchema)
