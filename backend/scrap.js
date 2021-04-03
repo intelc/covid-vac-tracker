@@ -5,29 +5,29 @@ const UsRaw = require('../models/usRaw.js')
 //const cors = require('cors');
 
 
-const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+// const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+// mongoose.connect(MONGO_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+//   })
 
 
 const fetchData = async()=>{
-    const mongoose = require('mongoose')
+    // const mongoose = require('mongoose')
 const puppeteer = require('puppeteer');
 const UsRaw = require('../models/usRaw.js')
   const browser = await puppeteer.launch();
 
-  const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+//   const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-
-  try{
-      const page = await browser.newPage();
+// mongoose.connect(MONGO_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+//   })
+    const scrap = async ()=>{
+        try{
+            const page = await browser.newPage();
 
       await page.goto('https://covid.cdc.gov/covid-data-tracker/#vaccinations');
       await page.addScriptTag({url: 'https://code.jquery.com/jquery-3.2.1.min.js'})
@@ -62,19 +62,39 @@ mongoose.connect(MONGO_URI, {
         
         return(data)
     })
+        return({total:administeredCount,singlePercent:percentOfPopSingle,fullyPercent:percentOfPopFully})
+        }catch(e){
+            console.log(e)
+        }
+    }
+  try{
+      
       const today = new Date()
-      
-
-
-      
+    
+      let USFlag=false
+        let USLoop=0
+        let total, singlePercent,fullyPercent
+        while(USFlag===false && USLoop<5){
+            ({total,singlePercent,fullyPercent} = await scrap())
+            if (total=='null' || total=='null' || total<0){
+            USLoop++
+            }else{
+            USFlag=true
+            }
+        }
+       
+       
       console.log(`Today is: ${today.getMonth()+1}.${today.getDate()}`)
-      console.log(`Administered: ${administeredCount}`)
-      console.log(`Percent of Total Population Single: ${percentOfPopSingle}%`)
-      console.log(`Percent of Total Population Fully: ${percentOfPopFully}%`)
+      console.log(`Administered: ${total}`)
+      console.log(`Percent of Total Population Single: ${singlePercent}%`)
+      console.log(`Percent of Total Population Fully: ${fullyPercent}%`)
+
+
+     
 
 
       try{await UsRaw.create(
-        { date:today,vaccinated:administeredCount,once:percentOfPopSingle,fully:percentOfPopFully },  
+        { date:today,vaccinated:total,once:singlePercent,fully:fullyPercent },  
         
         
         
@@ -88,11 +108,10 @@ mongoose.connect(MONGO_URI, {
       //res.send('error2')
       console.log(e)
   }finally{
-    await mongoose.connection.close()
+    // await mongoose.connection.close()
   }
   console.log('scrap done')
 }
-
 
 
 module.exports = fetchData

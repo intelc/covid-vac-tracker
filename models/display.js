@@ -12,7 +12,8 @@ const displaySchema = new Schema({
   euTotal:Number,
   euPercent:Number,
   englandTotal:Number,
-  englandPercent:Number
+  englandPercent:Number,
+  globalTotal:Number
 })
 
 module.exports = model('Display', displaySchema)

@@ -15,10 +15,7 @@ const update = require('./backend/update.js')
 const server = express()
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+
 let mail=new mailClient({
   user:`chen.yiheng99@gmail.com`, // your address
   pass:`fchdvuvqpdtvtpyd`, // your password
@@ -26,11 +23,15 @@ let mail=new mailClient({
   smtp:['smtp.gmail.com',587], // [host,port,secure]
   name:'Jack from IT' // your name when send
 })
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 const task = async()=>{
   await scrap()
   await update()
 }
-//task()
+task()
 
 
 cron.schedule('0 19 * * *',  async () => {

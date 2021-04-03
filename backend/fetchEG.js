@@ -8,7 +8,7 @@
 
 
 const fetchEG = async()=>{
-    const mongoose = require('mongoose')
+    // const mongoose = require('mongoose')
   //const puppeteer = require('puppeteer');
   const puppeteer = require('puppeteer-extra')
   const StealthPlugin = require('puppeteer-extra-plugin-stealth')
@@ -25,12 +25,12 @@ const fetchEG = async()=>{
     ]
     });
 
-  const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+  // const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-  mongoose.connect(MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
+  // mongoose.connect(MONGO_URI, {
+  //     useNewUrlParser: true,
+  //     useUnifiedTopology: true
+  //   })
 
   try{
 
@@ -91,7 +91,7 @@ const fetchEG = async()=>{
       const today = new Date()
       console.log(link)
       await browser.close();
-      await mongoose.connection.close()
+      // await mongoose.connection.close()
       return(link)
 
       
@@ -108,7 +108,7 @@ const fetchEG = async()=>{
       //res.send('error2')
       console.log(e)
   }finally{
-      mongoose.connection.close()
+      // mongoose.connection.close()
   }
   console.log('scrap done')
 }

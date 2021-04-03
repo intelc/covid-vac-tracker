@@ -1,9 +1,11 @@
 /* eslint-disable no-loop-func */
 
 
-const update = async()=>{
-  const mongoose = require('mongoose')
 
+
+const update = async()=>{
+  // const mongoose = require('mongoose')
+  const fetchGlobal = require('./fetchGlobal.js')
 const UsRaw = require('../models/usRaw.js')
 const Display = require('../models/display.js')
 const path = require('path')
@@ -13,10 +15,10 @@ const fetchEU = require('./fetchEU.js')
 
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+// mongoose.connect(MONGO_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+//   })
   try{
       
       const today = new Date()
@@ -161,15 +163,16 @@ mongoose.connect(MONGO_URI, {
     }
   }
   console.log(`Today England: ${englandTotal}, ${englandPercent}`)
-  
+  var globalTotal
+  globalTotal= await fetchGlobal()
 
   /////
-  mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  // mongoose.connect(MONGO_URI, {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true
+  // })
   try{await Display.create({date,total,singlePercent,fullyPercent,sevenDayAvg,shotsToday,chinaTotal,
-  euTotal,euPercent,englandTotal,englandPercent})
+  euTotal,euPercent,englandTotal,englandPercent,globalTotal})
   }catch(e){console.log(e)}
 
      
@@ -183,7 +186,7 @@ mongoose.connect(MONGO_URI, {
       //res.send('error2')
       console.log(e)
   }finally{
-    await mongoose.connection.close()
+    // await mongoose.connection.close()
   }
   console.log('done')
 }

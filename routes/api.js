@@ -7,22 +7,27 @@ const mongoose = require('mongoose')
 const puppeteer = require('puppeteer');
 
 
-const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+// const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+// mongoose.connect(MONGO_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+//   })
 // Gets All Questions
 //router.get('/', (req, res) => res.json(Question));
 
 // Create Questionwqe
 router.get('/US/latest', (req, res) => {
     console.log('I AM HERE')
-    Display.find({}).sort({date: -1}).limit(1).then(function (data) {
-        res.send(data[0])
-        console.log(data[0])
-        });
+    try{
+        Display.find({}).sort({date: -1}).then(function (data) {
+            res.send(data[0])
+            console.log(data[0])
+            });
+    }catch(e){
+        res.send(e)
+    }
+    
         
 })
 
