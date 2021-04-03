@@ -1,10 +1,9 @@
-/* eslint-disable no-loop-func */
 
 const mongoose = require('mongoose')
 const puppeteer = require('puppeteer');
 const UsRaw = require('../models/usRaw.js')
 //const cors = require('cors');
-const path = require('path')
+
 
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
@@ -12,8 +11,21 @@ mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
+
+
 const fetchData = async()=>{
+    const mongoose = require('mongoose')
+const puppeteer = require('puppeteer');
+const UsRaw = require('../models/usRaw.js')
   const browser = await puppeteer.launch();
+
+  const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+
+mongoose.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+
   try{
       const page = await browser.newPage();
 
@@ -76,10 +88,11 @@ const fetchData = async()=>{
       //res.send('error2')
       console.log(e)
   }finally{
-      await mongoose.connection.close()
+      
   }
-  console.log('done')
+  console.log('scrap done')
 }
 
-fetchData()
-console.log('done2')
+
+
+module.exports = fetchData
