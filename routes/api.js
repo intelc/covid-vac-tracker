@@ -3,10 +3,16 @@ const router = express.Router();
 //const Us = require('../models/usRaw.js')
 const Display = require('../models/display.js')
 const { v4 } = require('uuid')
+const mongoose = require('mongoose')
 const puppeteer = require('puppeteer');
 
 
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
+mongoose.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
 // Gets All Questions
 //router.get('/', (req, res) => res.json(Question));
 

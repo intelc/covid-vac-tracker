@@ -88,7 +88,7 @@ mongoose.connect(MONGO_URI, {
       //res.send('error2')
       console.log(e)
   }finally{
-      
+    await mongoose.connection.close()
   }
   console.log('scrap done')
 }

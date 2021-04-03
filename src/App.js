@@ -11,12 +11,19 @@ function App() {
   const [fullyPercent,setFullyPercent]=useState(0)
   const [sevenDayAvg,setSevenDayAvg]=useState(1)
   const [shotsToday,setShotsToday]=useState(1)
+  const [chinaTotal,setChinaTotal]=useState(1)
+  const [euTotal,setEuTotal]=useState(1)
+  const [euPercent,setEuPercent]=useState(1)
+  const [englandTotal,setEnglandTotal]=useState(1)
+  const [englandPercent,setEnglandPercent]=useState(1)
 
   useEffect(() => {
     const getData = async()=>{
       const dataFromServer = await pullData()
-      const{date, total,singlePercent,fullyPercent,sevenDayAvg,shotsToday} = await dataFromServer
-      console.log(date, total,singlePercent,fullyPercent,sevenDayAvg,shotsToday)
+      const{date,total,singlePercent,fullyPercent,sevenDayAvg,shotsToday,chinaTotal,
+        euTotal,euPercent,englandTotal,englandPercent} = await dataFromServer
+      console.log(date,total,singlePercent,fullyPercent,sevenDayAvg,shotsToday,chinaTotal,
+        euTotal,euPercent,englandTotal,englandPercent)
       
       setDate(new Date(date))
       setTotal(total)
@@ -24,6 +31,13 @@ function App() {
       setFullyPercent(fullyPercent)
       setSevenDayAvg(sevenDayAvg)
       setShotsToday(shotsToday)
+
+      setChinaTotal(chinaTotal)
+      setEuTotal(euTotal)
+      setEuPercent(euPercent)
+      setEnglandTotal(englandTotal)
+      setEnglandPercent(englandPercent)
+      
     }
     getData()
     
@@ -48,10 +62,9 @@ function App() {
         <p style={{}}>🚨今日接种{(shotsToday/10000).toFixed(1)}万剂;</p>
         <p style={{}}>📈七日平均{(sevenDayAvg/10000).toFixed(1)}万剂⬆️；</p>
         <p style={{color:'gray'}}>📅按照当前平均速率，美国将在4个月内(今年7月) 完成对75%的人口接种并形成群体免疫。</p>
-        <p style={{color:'gray'}}>🇨🇳中国: 1.03亿剂；人口占比3.6%</p>
-        <p style={{color:'gray'}}>🇪🇺欧盟: 6772万剂；人口占比7.6%</p>
-        <p style={{color:'gray'}}>🇮🇳印度: 6027万剂；人口占比2.2% </p>
-        <p style={{color:'gray'}}>🇬🇧英国: 3368万剂；人口占比25.2%</p>
+        <p style={{}}>🇨🇳中国: {(chinaTotal/100000000).toFixed(2)}亿剂；人口占比3.6%</p>
+        <p style={{}}>🇪🇺欧盟: {(euTotal/10000).toFixed(2)}万剂；人口占比{(euPercent.toFixed(2))}%</p>
+        <p style={{}}>🇬🇧英国: {(englandTotal/10000).toFixed(2)}万剂；人口占比{(englandPercent.toFixed(2))}%</p>
 
 
         

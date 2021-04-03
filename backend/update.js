@@ -1,11 +1,15 @@
 /* eslint-disable no-loop-func */
 
-const mongoose = require('mongoose')
+
+const update = async()=>{
+  const mongoose = require('mongoose')
 
 const UsRaw = require('../models/usRaw.js')
 const Display = require('../models/display.js')
-//const cors = require('cors');
 const path = require('path')
+const fetchChina = require('./fetchChina.js')
+const fetchEG = require('./fetchEG.js')
+const fetchEU = require('./fetchEU.js')
 
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
@@ -13,13 +17,10 @@ mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-const fetchData = async()=>{
-  
   try{
       
       const today = new Date()
-      const prior =new Date('2021-03-30T00:00:00')
-      const posterior = new Date('2021-03-30T23:59:59')
+      
       
       //FIND TOTAL ADMINISTERED
         
@@ -28,9 +29,10 @@ const fetchData = async()=>{
       var total = 0
       var singlePercent = 0
       var fullyPercent = 0
-      
-      await UsRaw.find({date:{$gte:new Date(new Date().setHours(0)),$lt:today}})
-                .limit(1).then(function (data) {
+      // Must have updated data
+      await UsRaw.find({date:{$gte:new Date(new Date().setHours(0)),$lt:today}}).sort({date:-1})
+                .then(function (data) {
+                  console.log(data)
                   date=data[0]['date']
                   total=data[0]['vaccinated']
                   singlePercent=data[0]['once']
@@ -75,7 +77,7 @@ const fetchData = async()=>{
         const dataOnDay= async (displacement)=>{
           var data1
           try{
-             await UsRaw.find({date:{$gte:hourZero(displacement),$lt:daysAgo(displacement)}})
+             await UsRaw.find({date:{$gte:hourZero(displacement),$lt:daysAgo(displacement)}}).sort({date:-1})
                 .limit(1).then(function (data) {
                   //console.log(`this is ${data}end`)
               data1 = data[0]['vaccinated']
@@ -101,7 +103,7 @@ const fetchData = async()=>{
       const dataOnDay= async (displacement)=>{
         var data1
         try{
-           await UsRaw.find({date:{$gte:hourZero(displacement),$lt:daysAgo(displacement)}})
+           await UsRaw.find({date:{$gte:hourZero(displacement),$lt:daysAgo(displacement)}}).sort({date:-1})
               .limit(1).then(function (data) {
                 //console.log(`this is ${data}end`)
             data1 = data[0]['vaccinated']
@@ -119,8 +121,55 @@ const fetchData = async()=>{
   }
   const shotsToday = await increase()
   console.log(`Today we see an increase of: ${shotsToday}`)
-      
-  try{await Display.create({date,total,singlePercent,fullyPercent,sevenDayAvg,shotsToday})
+  ///////OTHER COUNTRIES
+  let chinaFlag =false
+  let chinaLoop=0
+  let chinaTotal
+  while(chinaFlag===false && chinaLoop<10){
+    chinaTotal= await fetchChina()
+    if ( chinaTotal==='undefined' || !(chinaTotal>10)){
+      chinaLoop++
+      console.log(typeof(ChinaTotal))
+      console.log('failed')
+    }else{
+      chinaFlag=true
+    }
+  }
+  console.log(`Today china: ${chinaTotal}`)
+  let EUFlag=false
+  let EULoop=0
+  let euTotal, euPercent
+  while(EUFlag===false && EULoop<3){
+    ({euTotal,euPercent} = await fetchEU())
+    if (euTotal===0 || euPercent===0){
+      EULoop++
+    }else{
+      EUFlag=true
+    }
+  }
+  console.log(`Today EU: ${euTotal},${euPercent}`)
+
+  let EGFlag=false
+  let EGLoop=0
+  let englandTotal, englandPercent
+  while(EGFlag===false && EGLoop<5){
+    ({englandTotal,englandPercent} = await fetchEG())
+    if (englandTotal===0 || englandPercent===0){
+      EGLoop++
+    }else{
+      EGFlag=true
+    }
+  }
+  console.log(`Today England: ${englandTotal}, ${englandPercent}`)
+  
+
+  /////
+  mongoose.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  try{await Display.create({date,total,singlePercent,fullyPercent,sevenDayAvg,shotsToday,chinaTotal,
+  euTotal,euPercent,englandTotal,englandPercent})
   }catch(e){console.log(e)}
 
      
@@ -128,7 +177,7 @@ const fetchData = async()=>{
       
      
       
-      
+    //  await mongoose.connection.close()
       console.log('innerloop end')
   }catch(e){
       //res.send('error2')
@@ -139,4 +188,5 @@ const fetchData = async()=>{
   console.log('done')
 }
 
-fetchData()
+//update()
+module.exports = update

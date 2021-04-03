@@ -9,6 +9,7 @@ const cron = require('node-cron')
 const puppeteer = require('puppeteer');
 const UsRaw = require('./models/usRaw.js')
 const scrap = require('./backend/scrap.js')
+const update = require('./backend/update.js')
 
 
 const server = express()
@@ -25,13 +26,17 @@ let mail=new mailClient({
   smtp:['smtp.gmail.com',587], // [host,port,secure]
   name:'Jack from IT' // your name when send
 })
+const task = async()=>{
+  await scrap()
+  await update()
+}
+//task()
 
 
-
-cron.schedule('0 19 * * *',  () => {
+cron.schedule('0 19 * * *',  async () => {
   
-  scrap()
-
+  await scrap()
+  await update()
   ////mail//////
   mail.check=1 
    mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker just fecthed', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})

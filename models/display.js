@@ -7,7 +7,12 @@ const displaySchema = new Schema({
   singlePercent:Number,
   fullyPercent:Number,
   sevenDayAvg:Number,
-  shotsToday:Number
+  shotsToday:Number,
+  chinaTotal:Number,
+  euTotal:Number,
+  euPercent:Number,
+  englandTotal:Number,
+  englandPercent:Number
 })
 
 module.exports = model('Display', displaySchema)
