@@ -28,17 +28,7 @@ function App() {
     getData()
     
   }, [])
-  /*const sendRequest = async (date,vaccinated)=>{
-    const res =await fetch('api/US/add',{method:'POST', 
-    headers: {
-      'Content-type':'application/json'
-    },
-    body:`{"date":"${date}","vaccinated":${vaccinated}}`
-  }
-    )
-    console.log('sent')
-
-  }*/
+  
   const pullData = async ()=>{
     const res =await fetch('api/US/latest',{methods:'GET'})
     console.log('fetched')
@@ -51,8 +41,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>💉全球CV-19疫苗接种进展 ({date.getMonth()+1}.{date.getDate()})💉</p>
-        <p style={{}}>🌏4.50亿剂</p>
+        <p>💉全球CV-19疫苗接种进展 ({date.getMonth()+1}.{date.getDate()} {date.getHours()}:00 更新)💉</p>
+        <p style={{color:'gray'}}>🌏4.50亿剂</p>
         <hr></hr>
         <p>🇺🇸美国: 已接种{total}剂疫苗，人口占比{singlePercent.toFixed(2)}%；</p>
         <p style={{}}>🚨今日接种{(shotsToday/10000).toFixed(1)}万剂;</p>
