@@ -80,7 +80,7 @@ function App() {
         </div>
         
       </header>
-      
+      <footer> Intel Chen & Cormac Lee 2021</footer>
     </div>
   );
 }
