@@ -2,6 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Button} from 'react-bootstrap'
 import {useState, useEffect} from 'react'
+import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
 function App() {
   const [send,setSend]=useState(false)
   
@@ -56,22 +57,30 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <p>💉全球CV-19疫苗接种进展 ({date.getMonth()+1}.{date.getDate()} {date.getHours()}:{date.getMinutes()} 更新)💉</p>
+      <header className="App-header" style={{paddingTop:100}}>
+        <h1>💉全球CV-19疫苗接种进展 ({date.getMonth()+1}.{date.getDate()} {date.getHours()}:{date.getMinutes()} 更新)💉</h1>
         <p style={{}}>🌏{(globalTotal/100000000).toFixed(2)}
         亿剂</p>
         <hr></hr>
         <p>🇺🇸美国: 已接种{total}剂疫苗，人口占比{singlePercent.toFixed(2)}%；</p>
         <p style={{}}>🚨今日接种{(shotsToday/10000).toFixed(1)}万剂;</p>
         <p style={{}}>📈七日平均{(sevenDayAvg/10000).toFixed(1)}万剂⬆️；</p>
-        <p style={{color:'gray'}}>📅按照当前平均速率，美国将在4个月内(今年7月) 完成对75%的人口接种并形成群体免疫。</p>
+        <p style={{}}>📅按照当前平均速率，美国将在3个月内(今年7月) 完成对75%的人口接种并形成群体免疫。</p>
         <p style={{}}>🇨🇳中国: {(chinaTotal/100000000).toFixed(2)}亿剂；<span style={{color:'gray'}}>人口占比3.6%</span></p>
         <p style={{}}>🇪🇺欧盟: {(euTotal/10000).toFixed(2)}万剂；人口占比{(euPercent.toFixed(2))}%</p>
         <p style={{}}>🇬🇧英国: {(englandTotal/10000).toFixed(2)}万剂；人口占比{(englandPercent.toFixed(2))}%</p>
 
-
+        <div className="selfCenter standardWidth">
+          <TwitterTimelineEmbed
+            sourceType="profile"
+            screenName="CDCgov"
+            options={{height: 600}}
+            
+          />
+        </div>
         
       </header>
+      
     </div>
   );
 }
