@@ -87,7 +87,7 @@ function App() {
         <>
         
         <Link to='/cn' style={{padding: 5, marginBottom:15}}> 
-      <Button style={{fontSize:20}} >中午 </Button>  </Link>
+      <Button style={{fontSize:20}} >中文 </Button>  </Link>
         <h1>💉Global CV-19 Vaccine Tracker 💉</h1>
         <p style={{color:'gray'}}>{date.getMonth()+1}.{date.getDate()} {date.getHours()}:{date.getMinutes()?date.getMinutes():`0${date.getMinutes()}`} updated</p>
       
