@@ -60,14 +60,14 @@ function App() {
   return (
     <Router>
     <div className="App">
-    <header className="App-header" style={{paddingTop:100}}>
+    <header className="App-header" style={{paddingTop:80}}>
     <Route path = '/cn' exact render = {(props)=>(
       <>
      
       <Link to='/' style={{padding: 5, marginBottom:15}}> 
       <Button style={{fontSize:20}} >English </Button>  </Link>
         <h1>💉全球CV-19疫苗接种进展 💉</h1>
-        <p>{date.getMonth()+1}.{date.getDate()} {date.getHours()}:{date.getMinutes()?date.getMinutes():`0${date.getMinutes()}`} 更新</p>
+        <p style={{color:'gray'}}>{date.getMonth()+1}.{date.getDate()} {date.getHours()}:{date.getMinutes()?date.getMinutes():`0${date.getMinutes()}`} 更新</p>
         <p style={{}}>🌏{(globalTotal/100000000).toFixed(2)}
         亿剂</p>
         <hr></hr>
@@ -87,9 +87,9 @@ function App() {
         <>
         
         <Link to='/cn' style={{padding: 5, marginBottom:15}}> 
-      <Button style={{fontSize:20}} >Chinese </Button>  </Link>
+      <Button style={{fontSize:20}} >中午 </Button>  </Link>
         <h1>💉Global CV-19 Vaccine Tracker 💉</h1>
-        <p>{date.getMonth()+1}.{date.getDate()} {date.getHours()}:{date.getMinutes()?date.getMinutes():`0${date.getMinutes()}`} updated</p>
+        <p style={{color:'gray'}}>{date.getMonth()+1}.{date.getDate()} {date.getHours()}:{date.getMinutes()?date.getMinutes():`0${date.getMinutes()}`} updated</p>
       
         <p style={{}}>🌏 <Button variant = 'success' href ='https://www.pharmaceutical-technology.com/covid-19-vaccination-tracker/' style={{fontSize:30, padding:2,margin:5,position:'relative', bottom:5, left:0}}>
           {(globalTotal/1000000).toFixed(2)} M</Button>
