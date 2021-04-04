@@ -31,7 +31,7 @@ const task = async()=>{
   await scrap()
   await update()
 }
-task()
+//task()
 
 cron.schedule('0 8,13,18 * * *',  async () => {
   
@@ -44,7 +44,7 @@ cron.schedule('0 8,13,18 * * *',  async () => {
   console.log('email sent')
 });
 
-cron.schedule('0 15 * * *',  async () => {
+cron.schedule('0 15,19 * * *',  async () => {
   
   
   await update()
