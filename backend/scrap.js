@@ -76,7 +76,7 @@ const UsRaw = require('../models/usRaw.js')
         let total, singlePercent,fullyPercent
         while(USFlag===false && USLoop<5){
             ({total,singlePercent,fullyPercent} = await scrap())
-            if (total=='null' || total=='null' || total<0){
+            if (total=='null' || !total || total<0){
             USLoop++
             }else{
             USFlag=true

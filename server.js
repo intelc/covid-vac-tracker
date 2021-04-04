@@ -31,16 +31,26 @@ const task = async()=>{
   await scrap()
   await update()
 }
-//task()
+task()
 
-
-cron.schedule('0 19 * * *',  async () => {
+cron.schedule('0 8,13,18 * * *',  async () => {
   
   await scrap()
+
+  ////mail//////
+  mail.check=1 
+   mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker CDC fetched', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
+  .catch(console.error)
+  console.log('email sent')
+});
+
+cron.schedule('0 15 * * *',  async () => {
+  
+  
   await update()
   ////mail//////
   mail.check=1 
-   mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker just fecthed', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
+   mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker just updated', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
   .catch(console.error)
   console.log('email sent')
 });

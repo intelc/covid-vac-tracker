@@ -21,51 +21,54 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
 //   })
   try{
       
-      const today = new Date()
+      let today = new Date()
       
       
       //FIND TOTAL ADMINISTERED
         
       
-      var date = 0
-      var total = 0
-      var singlePercent = 0
-      var fullyPercent = 0
+      let date = 0
+      let total = 0
+      let singlePercent = 0
+      let fullyPercent = 0
       // Must have updated data
       await UsRaw.find({date:{$gte:new Date(new Date().setHours(0)),$lt:today}}).sort({date:-1})
                 .then(function (data) {
                   console.log(data)
                   date=data[0]['date']
+                  //today=data[0]['date']
                   total=data[0]['vaccinated']
                   singlePercent=data[0]['once']
                   fullyPercent=data[0]['fully']
                 })
       
-      console.log(`Today is: ${today.getMonth()+1}.${today.getDate()}\n
+      console.log(`Today is: ${date.getMonth()+1}.${date.getDate()}\n
                     Administered: ${total}\n
                     singlePercent: ${singlePercent}\n
                     fullyPercent: ${fullyPercent}\n
                     `)
       
       //FIND seven day avg, shots today          
-      const hourZero = (moveBy)=>{
+      const hourZero = (date,moveBy)=>{
         var newDate
         if(moveBy===0){
-          newDate= new Date(new Date().setHours(0))
+          newDate= new Date(date.setHours(0))
         }else{
-          newDate = new Date(new Date(new Date().setDate(today.getDate()+moveBy)).setHours(0))
-          
+          //newDate = new Date(new Date().setDate(date.getDate()+moveBy))
+          //newDate = new Date(new Date().setHours(date.getHours()-12))
+          newDate =new Date(new Date(new Date().setDate(date.getDate()+moveBy)).setHours(0))
         }
         //console.log(newDate)
         return newDate
         
       }
-      const daysAgo = (moveBy)=>{
+      const daysAgo = (date,moveBy)=>{
         var newDate
         if(moveBy===0){
-          newDate= new Date(new Date().setHours(23))
+          newDate= new Date(date.setHours(23))
         }else{
-          newDate =new Date(new Date(new Date().setDate(today.getDate()+moveBy)).setHours(23))
+          newDate =new Date(new Date(new Date().setDate(date.getDate()+moveBy)).setHours(23))
+          //newDate =new Date(new Date().setDate(date.getDate()+moveBy))
         }
         //console.log(newDate)
         return newDate
@@ -79,7 +82,7 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
         const dataOnDay= async (displacement)=>{
           var data1
           try{
-             await UsRaw.find({date:{$gte:hourZero(displacement),$lt:daysAgo(displacement)}}).sort({date:-1})
+             await UsRaw.find({date:{$gte:hourZero(date,displacement),$lt:daysAgo(date,displacement)}}).sort({date:-1})
                 .limit(1).then(function (data) {
                   //console.log(`this is ${data}end`)
               data1 = data[0]['vaccinated']
@@ -105,7 +108,7 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
       const dataOnDay= async (displacement)=>{
         var data1
         try{
-           await UsRaw.find({date:{$gte:hourZero(displacement),$lt:daysAgo(displacement)}}).sort({date:-1})
+           await UsRaw.find({date:{$gte:hourZero(date,displacement),$lt:daysAgo(date,displacement)}}).sort({date:-1})
               .limit(1).then(function (data) {
                 //console.log(`this is ${data}end`)
             data1 = data[0]['vaccinated']
@@ -118,7 +121,7 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
       zero = await dataOnDay(0)
       six = await dataOnDay(-1)
       
-      const avg = (zero-six)/7
+      const avg = (zero-six)
       return avg
   }
   const shotsToday = await increase()
