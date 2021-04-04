@@ -58,7 +58,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header" style={{paddingTop:100}}>
-        <h1>💉全球CV-19疫苗接种进展 ({date.getMonth()+1}.{date.getDate()} {date.getHours()}:{date.getMinutes()} 更新)💉</h1>
+        <h1>💉全球CV-19疫苗接种进展 ({date.getMonth()+1}.{date.getDate()} {date.getHours()}:{date.getMinutes()?date.getMinutes():`0${date.getMinutes()}`} 更新)💉</h1>
         <p style={{}}>🌏{(globalTotal/100000000).toFixed(2)}
         亿剂</p>
         <hr></hr>
