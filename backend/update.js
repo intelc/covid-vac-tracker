@@ -52,7 +52,7 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
       const hourZero = (date,moveBy)=>{
         var newDate
         if(moveBy===0){
-          newDate= new Date(date.setHours(0))
+          newDate= new Date(new Date(date).setHours(0))
         }else{
           //newDate = new Date(new Date().setDate(date.getDate()+moveBy))
           //newDate = new Date(new Date().setHours(date.getHours()-12))
@@ -65,7 +65,7 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
       const daysAgo = (date,moveBy)=>{
         var newDate
         if(moveBy===0){
-          newDate= new Date(date.setHours(23))
+          newDate= new Date(new Date(date).setHours(23))
         }else{
           newDate =new Date(new Date(new Date().setDate(date.getDate()+moveBy)).setHours(23))
           //newDate =new Date(new Date().setDate(date.getDate()+moveBy))
@@ -174,7 +174,8 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
   //   useNewUrlParser: true,
   //   useUnifiedTopology: true
   // })
-  try{await Display.create({date,total,singlePercent,fullyPercent,sevenDayAvg,shotsToday,chinaTotal,
+  console.log(`Today's date:${today}`)
+  try{await Display.create({date:today,total,singlePercent,fullyPercent,sevenDayAvg,shotsToday,chinaTotal,
   euTotal,euPercent,englandTotal,englandPercent,globalTotal})
   }catch(e){console.log(e)}
 

@@ -33,7 +33,7 @@ const task = async()=>{
 }
 //task()
 
-cron.schedule(' 0 21 * * *',  async () => {
+cron.schedule(' 0,30 14,16 * * *',  async () => {
   
   await scrap()
 
@@ -47,7 +47,7 @@ cron.schedule(' 0 21 * * *',  async () => {
   timezone: "America/New_York"
 });
 
-cron.schedule(' 5 21 * * *',  async () => {
+cron.schedule(' 0,30 13-23/2 * * *',  async () => {
   //15,19
   
   await update()
