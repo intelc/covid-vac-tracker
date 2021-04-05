@@ -33,8 +33,8 @@ const task = async()=>{
 }
 //task()
 
-cron.schedule('0 8,13,18 * * *',  async () => {
-  
+cron.schedule('30 20 * * *',  async () => {
+  //8,13,19
   await scrap()
 
   ////mail//////
@@ -42,10 +42,13 @@ cron.schedule('0 8,13,18 * * *',  async () => {
    mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker CDC fetched', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
   .catch(console.error)
   console.log('email sent')
+},{
+  scheduled: true,
+  timezone: "America/New_York"
 });
 
-cron.schedule('0 15,19 * * *',  async () => {
-  
+cron.schedule('35 20 * * *',  async () => {
+  //15,19
   
   await update()
   ////mail//////
@@ -53,6 +56,9 @@ cron.schedule('0 15,19 * * *',  async () => {
    mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker just updated', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
   .catch(console.error)
   console.log('email sent')
+},{
+  scheduled: true,
+  timezone: "America/New_York"
 });
 
 server.use(express.json())
