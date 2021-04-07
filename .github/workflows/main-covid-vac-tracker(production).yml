@@ -23,7 +23,7 @@ jobs:
       with:
         node-version: '14.x'
 
-    - name: CI= npm install, build, and test
+    - name: process.env.CI = false npm install, build, and test
       run: |
         npm install
         npm run build --if-present
