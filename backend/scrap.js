@@ -17,7 +17,7 @@ const fetchData = async()=>{
     // const mongoose = require('mongoose')
 const puppeteer = require('puppeteer');
 const UsRaw = require('../models/usRaw.js')
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({headless:true});
 
 //   const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
@@ -31,7 +31,7 @@ const UsRaw = require('../models/usRaw.js')
 
       await page.goto('https://covid.cdc.gov/covid-data-tracker/#vaccinations');
       await page.addScriptTag({url: 'https://code.jquery.com/jquery-3.2.1.min.js'})
-      
+      await page.waitForSelector('#vaccinations-banner-wrapper > div:nth-child(1) > div > div:nth-child(1) > div > div > div.row.w-100.pt-3.IEPadding > div:nth-child(2) > div')
       const administeredCount = await page.evaluate(() => {  
           var data
           try {           
