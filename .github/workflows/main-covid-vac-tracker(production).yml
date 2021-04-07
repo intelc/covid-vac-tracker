@@ -8,8 +8,6 @@ on:
     branches:
       - main
 
-env:
-  CI:false
 
 jobs:
   build-and-deploy:
@@ -26,8 +24,9 @@ jobs:
       with:
         node-version: '14.x'
 
-    - name: process.env.CI = false npm install, build, and test
+    - name:  npm install, build, and test
       run: |
+        process.env.CI = false
         npm install
         npm run build --if-present
         npm run test --if-present
