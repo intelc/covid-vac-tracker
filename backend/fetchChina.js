@@ -12,8 +12,8 @@ const fetchChina = async()=>{
   const puppeteer = require('puppeteer-extra')
   const StealthPlugin = require('puppeteer-extra-plugin-stealth')
   puppeteer.use(StealthPlugin())
-  //const blockResourcesPlugin = require('puppeteer-extra-plugin-block-resources')()
-  //puppeteer.use(blockResourcesPlugin)
+ // const blockResourcesPlugin = require('puppeteer-extra-plugin-block-resources')()
+ // puppeteer.use(blockResourcesPlugin)
   const Display = require('../models/usRaw.js')
 
   const browser = await puppeteer.launch({headless:true,
@@ -35,15 +35,16 @@ const fetchChina = async()=>{
 
       const page = await browser.newPage();
       page.setDefaultTimeout (60000)
+      page.setDefaultNavigationTimeout(60000)
       // blockResourcesPlugin.blockedTypes.add('image')
       // blockResourcesPlugin.blockedTypes.add('stylesheet')
-      // blockResourcesPlugin.blockedTypes.add('other')
-      // blockResourcesPlugin.blockedTypes.add('media')
+        //blockResourcesPlugin.blockedTypes.add('other')
+      //blockResourcesPlugin.blockedTypes.add('media')
       await page.goto('http://www.nhc.gov.cn/xcs/xxgzbd/gzbd_index.shtml');
      // await page.goto('https://intoli.com/blog/not-possible-to-block-chrome-headless/chrome-headless-test.html');
       //await page.setRequestInterception(true);
       //await page.goto('http://espn.com');
-      //await page.addScriptTag({url: 'https://code.jquery.com/jquery-3.2.1.min.js'})
+      await page.addScriptTag({url: 'https://code.jquery.com/jquery-3.2.1.min.js'})
       await page.waitForSelector('body > div:nth-child(3) > div.fl.jkxdzcwj > ul > li:nth-child(1) > a')
      
       console.log('selector loaded')
@@ -63,14 +64,16 @@ const fetchChina = async()=>{
       // //blockResourcesPlugin.blockedTypes.delete('image')
       // blockResourcesPlugin.blockedTypes.delete('media') 
       const page2 = await browser.newPage();
+      page2.setDefaultTimeout (60000)
+      page2.setDefaultNavigationTimeout(60000)
       await page2.goto(`http://www.nhc.gov.cn${link1}`);
-      await page2.waitForSelector('#xw_box > p')
-      //await page2.waitForNavigation()
+      await page2.addScriptTag({url: 'https://code.jquery.com/jquery-3.2.1.min.js'})
+      await page2.waitForSelector('body > div.w1024.mb50 > div.list')
       console.log('selector2 loaded')
       const administeredCount = await page2.evaluate(() => {  
         var link
         try {           
-            link = $('#xw_box > p').text()
+            link = $('body > div.w1024.mb50 > div.list > div.con > p').text()
         } catch(err) {
            console.log('error')
         }

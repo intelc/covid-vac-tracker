@@ -69,6 +69,9 @@ server.use(express.static(path.join(__dirname, '/build')))
 server.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/build'))
 })
+server.get('/cn', (req, res) => {
+  res.sendFile(path.join(__dirname, '/build'))
+})
 
 server.use('/api',UsRouter);
 server.use('/', (req,res,next)=>res.send('Hello World'));

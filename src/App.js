@@ -75,7 +75,7 @@ function App() {
         <p style={{}}>🚨今日接种{(shotsToday/10000).toFixed(1)}万剂;</p>
         <p style={{}}>📈七日平均{(sevenDayAvg/10000).toFixed(1)}万剂⬆️；</p>
         <p style={{}}>📅按照当前平均速率，美国将在{7-(date.getMonth()+1)}个月内(今年7月) 完成对75%的人口接种并形成群体免疫。</p>
-        <p style={{}}>🇨🇳中国: {(chinaTotal/100000000).toFixed(2)}亿剂；<span style={{color:'gray'}}>人口占比4.9%</span></p>
+        <p style={{}}>🇨🇳中国: {(chinaTotal/100000000).toFixed(2)}亿剂；<span style={{}}>人口占比>{(chinaTotal/1398000000/2*100).toFixed(2)}%</span></p>
         <p style={{}}>🇪🇺欧盟: {(euTotal/10000).toFixed(2)}万剂；人口占比{(euPercent.toFixed(2))}%</p>
         <p style={{}}>🇬🇧英国: {(englandTotal/10000).toFixed(2)}万剂；人口占比{(englandPercent.toFixed(2))}%</p>
 
@@ -110,7 +110,7 @@ function App() {
         <Button variant = 'success' href ='http://www.nhc.gov.cn/xcs/xxgzbd/gzbd_index.shtml' style={{fontSize:30, padding:2,margin:5,position:'relative', bottom:5, left:0}}>
         {(chinaTotal/1000000).toFixed(2)} M
         </Button>
-         shots, <span style={{color:'gray'}}>4.9%</span> vaccinated</p> 
+         shots, <span style={{}}>>{(chinaTotal/1398000000/2*100).toFixed(2)}%</span> vaccinated</p> 
         <p style={{}}>🇪🇺EU: 
         <Button variant = 'success' href ='https://qap.ecdc.europa.eu/public/extensions/COVID-19/vaccine-tracker.html#uptake-tab' style={{fontSize:30, padding:2,margin:5,position:'relative', bottom:5, left:0}}>
           {(euTotal/1000000).toFixed(2)} M

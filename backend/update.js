@@ -58,7 +58,7 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
           //newDate = new Date(new Date().setHours(date.getHours()-12))
           newDate =new Date(new Date(new Date().setDate(date.getDate()+moveBy)).setHours(0))
         }
-        //console.log(newDate)
+        console.log(newDate)
         return newDate
         
       }
@@ -70,7 +70,7 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
           newDate =new Date(new Date(new Date().setDate(date.getDate()+moveBy)).setHours(23))
           //newDate =new Date(new Date().setDate(date.getDate()+moveBy))
         }
-        //console.log(newDate)
+        console.log(newDate)
         return newDate
       }
       
@@ -85,6 +85,7 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
              await UsRaw.find({date:{$gte:hourZero(date,displacement),$lt:daysAgo(date,displacement)}}).sort({date:-1})
                 .limit(1).then(function (data) {
                   //console.log(`this is ${data}end`)
+              
               data1 = data[0]['vaccinated']
             })
           }catch(e){
