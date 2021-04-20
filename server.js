@@ -74,7 +74,7 @@ server.get('/cn', (req, res) => {
 })
 
 server.use('/api',UsRouter);
-server.use('/', (req,res,next)=>res.send('Hello World'));
+//server.use('/', (req,res,next)=>res.send('Hello World'));
 
 
 
