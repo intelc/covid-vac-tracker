@@ -73,7 +73,9 @@ server.use('*', (req, res) => {
 
 server.use('/api',UsRouter);
 //server.use('/', (req,res,next)=>res.send('Hello World'));
-
+server.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/build'))
+})
 
 
 
