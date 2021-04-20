@@ -16,7 +16,7 @@ const fetchChina = async()=>{
  // puppeteer.use(blockResourcesPlugin)
   const Display = require('../models/usRaw.js')
 
-  const browser = await puppeteer.launch({headless:true,
+  const browser = await puppeteer.launch({headless:false,
     ignoreHTTPSErrors: true,
     slowMo: 0,
     args: ['--window-size=1400,900',
@@ -66,9 +66,13 @@ const fetchChina = async()=>{
       const page2 = await browser.newPage();
       page2.setDefaultTimeout (60000)
       page2.setDefaultNavigationTimeout(60000)
-      await page2.goto(`http://www.nhc.gov.cn${link1}`);
+      console.log('pregoto')
+      await page2.goto(`http://www.nhc.gov.cn${link1}`,{waitUntil:'load'});
+      console.log('scripttag')
       await page2.addScriptTag({url: 'https://code.jquery.com/jquery-3.2.1.min.js'})
-      await page2.waitForSelector('body > div.w1024.mb50 > div.list')
+      //await page2.waitForSelector('body > div.w1024.mb50 > div.list')
+      console.log('waiting')
+      await page2.waitForFunction("document.querySelector('#xw_box')!= 0",);
       console.log('selector2 loaded')
       const administeredCount = await page2.evaluate(() => {  
         var link

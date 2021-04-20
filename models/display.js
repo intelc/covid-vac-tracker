@@ -13,6 +13,7 @@ const displaySchema = new Schema({
   euPercent:Number,
   englandTotal:Number,
   englandPercent:Number,
+  indiaTotal:Number,
   globalTotal:Number
 })
 

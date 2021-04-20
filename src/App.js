@@ -19,15 +19,16 @@ function App() {
   const [euPercent,setEuPercent]=useState(1)
   const [englandTotal,setEnglandTotal]=useState(1)
   const [englandPercent,setEnglandPercent]=useState(1)
+  const [indiaTotal,setIndiaTotal]=useState(1)
   const [globalTotal,setGlobalTotal]=useState(1)
 
   useEffect(() => {
     const getData = async()=>{
       const dataFromServer = await pullData()
       const{date,total,singlePercent,fullyPercent,sevenDayAvg,shotsToday,chinaTotal,
-        euTotal,euPercent,englandTotal,englandPercent,globalTotal} = await dataFromServer
+        euTotal,euPercent,englandTotal,englandPercent,indiaTotal,globalTotal} = await dataFromServer
       console.log(date,total,singlePercent,fullyPercent,sevenDayAvg,shotsToday,chinaTotal,
-        euTotal,euPercent,englandTotal,englandPercent,globalTotal)
+        euTotal,euPercent,englandTotal,englandPercent,indiaTotal,globalTotal)
       
       setDate(new Date(date))
       setTotal(total)
@@ -41,6 +42,7 @@ function App() {
       setEuPercent(euPercent)
       setEnglandTotal(englandTotal)
       setEnglandPercent(englandPercent)
+      setIndiaTotal(indiaTotal)
       setGlobalTotal(globalTotal)
       
     }
@@ -76,8 +78,10 @@ function App() {
         <p style={{}}>📈七日平均{(sevenDayAvg/10000).toFixed(1)}万剂⬆️；</p>
         <p style={{}}>📅按照当前平均速率，美国将在{7-(date.getMonth()+1)}个月内(今年7月) 完成对75%的人口接种并形成群体免疫。</p>
         <p style={{}}>🇨🇳中国: {(chinaTotal/100000000).toFixed(2)}亿剂；<span style={{}}>人口占比>{(chinaTotal/1398000000/2*100).toFixed(2)}%</span></p>
+        <p style={{}}>🇮🇳印度: {(indiaTotal/10000).toFixed(2)}万剂；人口占比 >{(indiaTotal/1366000000/2*100).toFixed(2)}%</p>
         <p style={{}}>🇪🇺欧盟: {(euTotal/10000).toFixed(2)}万剂；人口占比{(euPercent.toFixed(2))}%</p>
         <p style={{}}>🇬🇧英国: {(englandTotal/10000).toFixed(2)}万剂；人口占比{(englandPercent.toFixed(2))}%</p>
+        
 
         
       </>
@@ -111,6 +115,11 @@ function App() {
         {(chinaTotal/1000000).toFixed(2)} M
         </Button>
          shots, <span style={{}}>>{(chinaTotal/1398000000/2*100).toFixed(2)}%</span> vaccinated</p> 
+         <p style={{}}>🇮🇳India: <Button variant = 'success' href ='https://www.mohfw.gov.in/' style={{fontSize:30, padding:2,margin:5,position:'relative', bottom:5, left:0}}>
+          {(indiaTotal/1000000).toFixed(2)} M
+          </Button>
+            shots, >{(indiaTotal/1366000000/2*100).toFixed(2)}% vaccinated</p>
+
         <p style={{}}>🇪🇺EU: 
         <Button variant = 'success' href ='https://qap.ecdc.europa.eu/public/extensions/COVID-19/vaccine-tracker.html#uptake-tab' style={{fontSize:30, padding:2,margin:5,position:'relative', bottom:5, left:0}}>
           {(euTotal/1000000).toFixed(2)} M
@@ -119,8 +128,8 @@ function App() {
         <p style={{}}>🇬🇧UK: <Button variant = 'success' href ='https://coronavirus.data.gov.uk/details/vaccinations' style={{fontSize:30, padding:2,margin:5,position:'relative', bottom:5, left:0}}>
           {(englandTotal/1000000).toFixed(2)} M
           </Button>
-            shots, {(englandPercent.toFixed(2))}% vaccinated</p>
-
+            shots, {(englandPercent.toFixed(2))}% vaccinated(1 shot)</p>
+        
         
 
 

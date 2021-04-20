@@ -12,6 +12,7 @@ const path = require('path')
 const fetchChina = require('./fetchChina.js')
 const fetchEG = require('./fetchEG.js')
 const fetchEU = require('./fetchEU.js')
+const fetchIndia = require('./fetchIndia.js')
 
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
@@ -167,6 +168,21 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
     }
   }
   console.log(`Today England: ${englandTotal}, ${englandPercent}`)
+
+  let IndiaFlag=false
+  let IndiaLoop=0
+  let indiaTotal
+  while(IndiaFlag===false && IndiaLoop<5){
+    ({indiaTotal} = await fetchIndia())
+    if (indiaTotal===0 ){
+      IndiaLoop++
+    }else{
+      IndiaFlag=true
+    }
+  }
+  console.log(`Today India: ${indiaTotal}`)
+
+
   var globalTotal
   globalTotal= await fetchGlobal()
 
@@ -177,7 +193,7 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
   // })
   console.log(`Today's date:${today}`)
   try{await Display.create({date:today,total,singlePercent,fullyPercent,sevenDayAvg,shotsToday,chinaTotal,
-  euTotal,euPercent,englandTotal,englandPercent,globalTotal})
+  euTotal,euPercent,englandTotal,englandPercent,indiaTotal,globalTotal})
   }catch(e){console.log(e)}
 
      

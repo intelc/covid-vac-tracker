@@ -25,28 +25,18 @@ const fetchEG = async()=>{
     ]
     });
 
-  // const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-  // mongoose.connect(MONGO_URI, {
-  //     useNewUrlParser: true,
-  //     useUnifiedTopology: true
-  //   })
 
   try{
 
       const page = await browser.newPage();
       page.setDefaultTimeout (60000)
-      // blockResourcesPlugin.blockedTypes.add('image')
-      // blockResourcesPlugin.blockedTypes.add('stylesheet')
-      // blockResourcesPlugin.blockedTypes.add('other')
-      // blockResourcesPlugin.blockedTypes.add('media')
+     
       await page.goto('https://coronavirus.data.gov.uk/details/vaccinations');
-     // await page.goto('https://intoli.com/blog/not-possible-to-block-chrome-headless/chrome-headless-test.html');
-      //await page.setRequestInterception(true);
-      //await page.goto('http://espn.com');
+     
       await page.addScriptTag({url: 'https://code.jquery.com/jquery-3.2.1.min.js'})
       await page.waitForSelector('#value-item-people_vaccinated-first_dose_total-cumpeoplevaccinatedfirstdosebypublishdate-0_description')
-      //await page.waitForNavigation()
+      
      
       console.log('selector loaded')
 
