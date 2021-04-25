@@ -16,7 +16,7 @@ const fetchChina = async()=>{
  // puppeteer.use(blockResourcesPlugin)
   const Display = require('../models/usRaw.js')
 
-  const browser = await puppeteer.launch({headless:false,
+  const browser = await puppeteer.launch({headless:true,
     ignoreHTTPSErrors: true,
     slowMo: 0,
     args: ['--window-size=1400,900',

@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors');
@@ -31,7 +30,7 @@ const task = async()=>{
   await scrap()
   await update()
 }
-task()
+//task()
 
 cron.schedule(' 0,30 14,16 * * *',  async () => {
   
@@ -63,19 +62,24 @@ cron.schedule(' 0,30 13-23/2 * * *',  async () => {
 
 server.use(express.json())
 server.use(express.urlencoded({ extended: false }));
-server.use(cors());
-
-server.use(express.static(path.join(__dirname, '/build')))
-server.use('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/build'))
-})
-
 
 server.use('/api',UsRouter);
-//server.use('/', (req,res,next)=>res.send('Hello World'));
-server.get('*', (req, res) => {
+
+server.use(express.static(path.join(__dirname, '/build')))
+server.use('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/build'))
+})
+server.use('/cn',express.static(path.join(__dirname, '/build')))
+server.use('/cn', (req, res) => {
   res.sendFile(path.join(__dirname, '/build'))
 })
+
+
+
+//server.use('/', (req,res,next)=>res.send('Hello World'));
+// server.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '/build'))
+// })
 
 
 

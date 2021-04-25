@@ -51,7 +51,7 @@ function App() {
   }, [])
   
   const pullData = async ()=>{
-    const res =await fetch('api/US/latest',{methods:'GET'})
+    const res =await fetch('/api/US/latest',{methods:'GET'})
     console.log('fetched')
     
     const returnedPromise= res.json()
