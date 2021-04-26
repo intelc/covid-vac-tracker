@@ -28,12 +28,15 @@ mongoose.connect(MONGO_URI, {
 })
 const task = async()=>{
   await scrap()
-  await update()
+  //await update()
 }
-//task()
+task()
 
 cron.schedule(' 0,30 14,16 * * *',  async () => {
-  
+  mail.check=1 
+   mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker scrap started', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
+  .catch(console.error)
+  console.log('email sent')
   await scrap()
 
   ////mail//////
@@ -51,10 +54,10 @@ cron.schedule(' 0,30 13-23/2 * * *',  async () => {
   
   await update()
   ////mail//////
-  mail.check=1 
-   mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker just updated', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
-  .catch(console.error)
-  console.log('email sent')
+  // mail.check=1 
+  //  mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker just updated', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
+  // .catch(console.error)
+  // console.log('email sent')
 },{
   scheduled: true,
   timezone: "America/New_York"
