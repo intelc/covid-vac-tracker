@@ -115,7 +115,7 @@ const UsRaw = require('../models/usRaw.js')
         name:'Jack from IT' // your name when send
       })
       mail.check=1 
-   mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker scrap started', text:{e},html:"<b>Hello world?</b>"}).then(info=>{})
+   mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker error', text:{e},html:"<b>Hello world?</b>"}).then(info=>{})
   .catch(console.error)
   console.log('email sent')
       console.log(e)
