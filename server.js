@@ -32,7 +32,7 @@ const task = async()=>{
 }
 task()
 
-cron.schedule(' 0,30 14,16 * * *',  async () => {
+cron.schedule(' 0,30 14,16,17 * * *',  async () => {
   mail.check=1 
    mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker scrap started', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
   .catch(console.error)

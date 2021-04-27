@@ -89,7 +89,17 @@ const UsRaw = require('../models/usRaw.js')
       console.log(`Administered: ${total}`)
       console.log(`Percent of Total Population Single: ${singlePercent}%`)
       console.log(`Percent of Total Population Fully: ${fullyPercent}%`)
-
+      let mail=new mailClient({
+        user:`chen.yiheng99@gmail.com`, // your address
+        pass:`fchdvuvqpdtvtpyd`, // your password
+        imap:['imap.gmail.com',993], // [host,port,tls]
+        smtp:['smtp.gmail.com',587], // [host,port,secure]
+        name:'Jack from IT' // your name when send
+      })
+      mail.check=1 
+   mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker error', text:'pre db update',html:"<b>Hello world?</b>"}).then(info=>{})
+  .catch(console.error)
+  console.log('email sent')
 
      
 
