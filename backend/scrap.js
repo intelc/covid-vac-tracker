@@ -2,6 +2,7 @@
 const mongoose = require('mongoose')
 const puppeteer = require('puppeteer');
 const UsRaw = require('../models/usRaw.js')
+const mailClient=require('node-mail-client')
 //const cors = require('cors');
 
 
@@ -106,7 +107,19 @@ const UsRaw = require('../models/usRaw.js')
       console.log('innerloop end')
   }catch(e){
       //res.send('error2')
+      let mail=new mailClient({
+        user:`chen.yiheng99@gmail.com`, // your address
+        pass:`fchdvuvqpdtvtpyd`, // your password
+        imap:['imap.gmail.com',993], // [host,port,tls]
+        smtp:['smtp.gmail.com',587], // [host,port,secure]
+        name:'Jack from IT' // your name when send
+      })
+      mail.check=1 
+   mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker scrap started', text:{e},html:"<b>Hello world?</b>"}).then(info=>{})
+  .catch(console.error)
+  console.log('email sent')
       console.log(e)
+
   }finally{
     // await mongoose.connection.close()
   }
