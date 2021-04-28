@@ -28,7 +28,7 @@ mongoose.connect(MONGO_URI, {
 })
 const task = async()=>{
   await scrap()
-  //await update()
+  await update()
 }
 task()
 
