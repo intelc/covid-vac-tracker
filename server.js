@@ -30,7 +30,7 @@ const task = async()=>{
   await scrap()
   await update()
 }
-task()
+//task()
 
 cron.schedule(' 0,30 12-22/2 * * *',  async () => {
   mail.check=1 

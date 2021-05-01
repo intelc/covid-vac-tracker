@@ -21,6 +21,7 @@ function App() {
   const [englandPercent,setEnglandPercent]=useState(1)
   const [indiaTotal,setIndiaTotal]=useState(1)
   const [globalTotal,setGlobalTotal]=useState(1)
+  const [loading,setLoading]=useState(true)
 
   useEffect(() => {
     const getData = async()=>{
@@ -47,7 +48,7 @@ function App() {
       
     }
     getData()
-    
+    setLoading(false)
   }, [])
   
   const pullData = async ()=>{
@@ -58,7 +59,17 @@ function App() {
     console.log(returnedPromise)
     return(returnedPromise)
   }
+  if(loading){
+    return(
+      <div className="App">
+        <div className="App-header">
+        <h1>💉全球CV-19疫苗接种进展 💉</h1>
+        <h1>Loading</h1>
+        </div>
+      </div>
 
+    )
+  }
   return (
     <Router>
     <div className="App">
