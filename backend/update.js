@@ -127,7 +127,12 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
       return avg
   }
   const shotsToday = await increase()
+ 
   console.log(`Today we see an increase of: ${shotsToday}`)
+  if(shotsToday===0){
+    console.log('returned')
+    return
+  }
   ///////OTHER COUNTRIES
   let chinaFlag =false
   let chinaLoop=0

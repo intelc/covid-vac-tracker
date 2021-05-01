@@ -30,9 +30,9 @@ const task = async()=>{
   await scrap()
   await update()
 }
-//task()
+task()
 
-cron.schedule(' 0,30 14,16,17 * * *',  async () => {
+cron.schedule(' 0,30 12-22/2 * * *',  async () => {
   mail.check=1 
    mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker scrap started', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
   .catch(console.error)
