@@ -20,7 +20,7 @@ const fetchChina = async()=>{
     ignoreHTTPSErrors: true,
     slowMo: 0,
     args: ['--window-size=1400,900',
-    '--disable-gpu', "--disable-features=IsolateOrigins,site-per-process", '--blink-settings=imagesEnabled=true'
+    '--disable-gpu', "--disable-features=IsolateOrigins,site-per-process", '--blink-settings=imagesEnabled=true',
     ]
     });
 
