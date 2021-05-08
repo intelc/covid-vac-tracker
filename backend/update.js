@@ -33,7 +33,7 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
       let singlePercent = 0
       let fullyPercent = 0
       // Must have updated data
-      await UsRaw.find({date:{$gte:new Date(new Date().setHours(0)),$lt:today}}).sort({date:-1})
+      await UsRaw.find().sort({date:-1})
                 .then(function (data) {
                   console.log(data)
                   date=data[0]['date']
@@ -106,14 +106,14 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
 
     const increase = async ()=>{
       var zero;
-      var six;
+      var one;
       const dataOnDay= async (displacement)=>{
         var data1
         try{
-           await UsRaw.find({date:{$gte:hourZero(date,displacement),$lt:daysAgo(date,displacement)}}).sort({date:-1})
-              .limit(1).then(function (data) {
+           await UsRaw.find().sort({date:-1})
+              .limit(2).then(function (data) {
                 //console.log(`this is ${data}end`)
-            data1 = data[0]['vaccinated']
+            data1 = data[displacement]['vaccinated']
           })
         }catch(e){
           console.log(e)
@@ -121,9 +121,9 @@ const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.n
         return data1
       }
       zero = await dataOnDay(0)
-      six = await dataOnDay(-1)
+      one = await dataOnDay(1)
       
-      const avg = (zero-six)
+      const avg = (zero-one)
       return avg
   }
   const shotsToday = await increase()
