@@ -27,9 +27,10 @@ mongoose.connect(MONGO_URI, {
   useUnifiedTopology: true
 })
 const task = async()=>{
-  //await scrap()
+  await scrap()
   await update()
 }
+console.log('pre task')
 task()
 
 cron.schedule(' 0,30 12-22/2 * * *',  async () => {
