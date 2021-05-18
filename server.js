@@ -12,7 +12,7 @@ const update = require('./backend/update.js')
 
 
 const server = express()
-const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const MONGO_URI = process.env.MONGODB_URI 
 
 
 let mail=new mailClient({
@@ -54,11 +54,7 @@ cron.schedule(' 0,30 13-23/2 * * *',  async () => {
   //15,19
   
   await update()
-  ////mail//////
-  // mail.check=1 
-  //  mail.send({ to:'yihechen@seas.upenn.edu', subject:'COVID-Vac-Tracker just updated', text:'yup',html:"<b>Hello world?</b>"}).then(info=>{})
-  // .catch(console.error)
-  // console.log('email sent')
+  
 },{
   scheduled: true,
   timezone: "America/New_York"
@@ -80,10 +76,6 @@ server.use('/cn', (req, res) => {
 
 
 
-//server.use('/', (req,res,next)=>res.send('Hello World'));
-// server.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '/build'))
-// })
 
 
 

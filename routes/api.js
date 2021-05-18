@@ -18,7 +18,7 @@ const puppeteer = require('puppeteer');
 
 // Create Questionwqe
 router.get('/US/latest', (req, res) => {
-    console.log('I AM HERE')
+    
     try{
         Display.find({}).sort({date: -1}).then(function (data) {
             res.send(data[0])

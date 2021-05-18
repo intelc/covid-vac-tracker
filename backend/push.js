@@ -15,8 +15,7 @@ mongoose.connect(MONGO_URI, {
     //await UsRaw.deleteMany({})
       try{await UsRaw.create(
         
-        { date:new Date('2021-04-30T19:00:00'),vaccinated:240159677,once:43.6,fully:30.5 },
-        
+        { date:new Date('2021-05-12T20:00:00'),vaccinated:264680844,once:43.6,fully:30.5 }
 
        
         
