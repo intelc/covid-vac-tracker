@@ -8,7 +8,7 @@ const update = async()=>{
   const fetchGlobal = require('./fetchGlobal.js')
 const UsRaw = require('../models/usRaw.js')
 const Display = require('../models/display.js')
-const path = require('path')
+
 const fetchChina = require('./fetchChina.js')
 const fetchEG = require('./fetchEG.js')
 const fetchEU = require('./fetchEU.js')

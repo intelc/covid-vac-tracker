@@ -1,7 +1,4 @@
 
-const mongoose = require('mongoose')
-const puppeteer = require('puppeteer');
-const UsRaw = require('../models/usRaw.js')
 const mailClient=require('node-mail-client')
 //const cors = require('cors');
 
@@ -18,7 +15,7 @@ const fetchData = async()=>{
     // const mongoose = require('mongoose')
 const puppeteer = require('puppeteer');
 const UsRaw = require('../models/usRaw.js')
-  const browser = await puppeteer.launch({headless:true,args :['--no-sandbox', '--disable-setuid-sandbox']});
+const browser = await puppeteer.launch({headless:true,args :['--no-sandbox', '--disable-setuid-sandbox']});
 
 //   const MONGO_URI = process.env.MONGODB_URI || 'mongodb+srv://node:1234@cluster0.nrfo8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
